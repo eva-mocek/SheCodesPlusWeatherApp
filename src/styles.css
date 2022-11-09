@@ -1,0 +1,78 @@
+body {
+  margin: 30px auto;
+  width: 75%;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  color: #3f474d;
+  background-image: url("../images/background-1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+button {
+  display: inline;
+  background-color: white;
+  color: #3f474d;
+  border: solid 1px darkgrey;
+  transition: all 150ms ease-in-out;
+}
+
+button:hover {
+  background-color: lightgray;
+}
+
+i {
+  color: #3f474d;
+}
+
+.search-bar {
+  width: 300px;
+  border: solid 1px darkgrey;
+}
+
+.main-display {
+  margin-top: 20px;
+}
+
+.city {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-size: 70px;
+  text-transform: capitalize;
+}
+
+.humid-wind {
+  text-align: right;
+  padding-top: 35px;
+}
+
+.date-time {
+  padding-top: 30px;
+}
+
+.temperature {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  text-align: right;
+  font-size: 90px;
+  padding: none;
+}
+
+.deg-lg {
+  font-size: 70px;
+}
+
+#weather-description {
+  text-transform: capitalize;
+}
+
+.forecast {
+  padding-top: 25px;
+}
+
+.author {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 12px;
+}
