@@ -92,7 +92,7 @@ async function getLatLong(cityString) {
   console.log(cityString);
 
   let apiKey = "d583b033935a0872b3f66c9a92145b16";
-  let geoUrl = "http://api.openweathermap.org/geo/1.0/direct?";
+  let geoUrl = "https://api.openweathermap.org/geo/1.0/direct?";
 
   let response = await axios.get(
     `${geoUrl}q=${cityString}&limit=1&appid=${apiKey}`
