@@ -76,3 +76,12 @@ i {
   margin-top: 50px;
   font-size: 12px;
 }
+
+.github {
+  text-align: center;
+  font-size: 12px;
+}
+
+.github-link {
+  text-decoration: underline;
+}

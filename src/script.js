@@ -3,7 +3,7 @@
 let now = new Date();
 let currentDate = document.querySelector("#current-date");
 
-function formatDate(date) {
+function formatDate(now) {
   let dayIndex = [
     "Sunday",
     "Monday",
@@ -38,9 +38,9 @@ currentDate.innerHTML = formatDate(now);
 // update to consider time zones
 let currentTime = document.querySelector("#current-time");
 let amPm = document.querySelector("#am-pm");
+let hours = now.getHours();
 
 function formatTime(time) {
-  let hours = now.getHours();
   if (hours === 0) {
     hours = 12;
   }
