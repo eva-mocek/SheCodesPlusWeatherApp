@@ -110,7 +110,6 @@ async function getLatLong(cityString) {
   );
   let latitude = response.data[0].lat;
   let longitude = response.data[0].lon;
-
   updateCityWeather(latitude, longitude);
 }
 
@@ -161,6 +160,7 @@ function showLocalWeather(event) {
 }
 
 function updateLocalCity(response) {
-  console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
 }
+
+updateCityWeather(43.6534817, -79.3839347);
