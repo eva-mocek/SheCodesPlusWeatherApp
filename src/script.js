@@ -163,4 +163,4 @@ function updateLocalCity(response) {
   document.querySelector("#city").innerHTML = response.data.name;
 }
 
-updateCityWeather(43.6534817, -79.3839347);
+updateCityWeather(43.6534817, -79.3839347); //Toronto, ON, Canada
