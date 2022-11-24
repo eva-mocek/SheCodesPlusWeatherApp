@@ -67,20 +67,6 @@ function formatTime(time) {
 
 currentTime.innerHTML = formatTime(now);
 
-/*
-SEARCH
-user enters a city
-api call - use input city to get lat & long coords
-api call - use lat & long to get weather data
-display weather data
-
-CURRENT
-gets user location data
-api call - use location to get lat & long coords
-api call - use lat & long to get weather data
-display weather data
-*/
-
 // Search Bar - submit event
 let form = document.querySelector("#search-city");
 form.addEventListener("submit", updateCity);
@@ -99,8 +85,6 @@ function updateCity(event) {
   let cityString = input.value.trim();
   getLatLong(cityString);
 }
-
-// API Calls
 
 // API - gets latitude and longitude of city searhed by user
 async function getLatLong(cityString) {
