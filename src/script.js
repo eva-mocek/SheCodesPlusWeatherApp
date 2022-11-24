@@ -67,6 +67,29 @@ function formatTime(time) {
 
 currentTime.innerHTML = formatTime(now);
 
+let city = "toronto";
+let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+axios.get(apiUrl).then(displayWeather);
+
+function displayWeather(response) {
+  console.log(response.data);
+  document.querySelector("#city").innerHTML = response.data.city;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `${response.data.temperature.humidity}%`;
+  document.querySelector("#wind-speed").innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} km/hr`;
+  document.querySelector("#weather-description").innerHTML =
+    response.data.condition.description;
+  document.querySelector("#temperature").innerHTML = `${Math.round(
+    response.data.temperature.current
+  )}°C`;
+}
+
+/*
 // Search Bar - submit event
 let form = document.querySelector("#search-city");
 form.addEventListener("submit", updateCity);
@@ -75,7 +98,7 @@ form.addEventListener("submit", updateCity);
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", showLocalWeather);
 
-let apiKey = "d583b033935a0872b3f66c9a92145b16";
+//let apiKey = "d583b033935a0872b3f66c9a92145b16";
 
 // Updates City with user input
 function updateCity(event) {
@@ -148,3 +171,4 @@ function updateLocalCity(response) {
 }
 
 updateCityWeather(43.6534817, -79.3839347); //Toronto, ON, Canada
+*/

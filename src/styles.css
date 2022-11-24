@@ -1,6 +1,6 @@
 body {
   margin: 30px auto;
-  width: 75%;
+  width: 70%;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   color: #3f474d;
@@ -38,13 +38,12 @@ i {
 .city {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
-  font-size: 70px;
+  font-size: 40px;
   text-transform: capitalize;
 }
 
 .humid-wind {
   text-align: right;
-  padding-top: 35px;
 }
 
 .date-time {
@@ -55,16 +54,12 @@ i {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   text-align: right;
-  font-size: 90px;
+  font-size: 70px;
   padding: none;
 }
 
 .deg-lg {
   font-size: 70px;
-}
-
-#weather-description {
-  text-transform: capitalize;
 }
 
 .forecast {
@@ -84,4 +79,8 @@ i {
 
 .github-link {
   text-decoration: underline;
+}
+
+#weather-description {
+  text-transform: capitalize;
 }
