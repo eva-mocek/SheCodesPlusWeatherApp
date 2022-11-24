@@ -67,43 +67,50 @@ function formatTime(time) {
 
 currentTime.innerHTML = formatTime(now);
 
+/*
+SEARCH
+user enters a city
+api call - use input city to get lat & long coords
+api call - use lat & long to get weather data
+display weather data
+
+CURRENT
+gets user location data
+api call - use location to get lat & long coords
+api call - use lat & long to get weather data
+display weather data
+*/
+
 // Search Bar - submit event
 let form = document.querySelector("#search-city");
 form.addEventListener("submit", updateCity);
 
+// Current Weather Button - click event
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", showLocalWeather);
+
+let apiKey = "d583b033935a0872b3f66c9a92145b16";
 
 // Updates City with user input
 function updateCity(event) {
   event.preventDefault();
-  let city = document.querySelector("#city");
-
   let input = document.querySelector("#input-city");
-  city.innerHTML = input.value.trim();
-
+  document.querySelector("#city").innerHTML = input.value.trim();
   let cityString = input.value.trim();
   getLatLong(cityString);
 }
 
-// API
-let apiKey = "d583b033935a0872b3f66c9a92145b16";
+// API Calls
 
 // API - gets latitude and longitude of city searhed by user
 async function getLatLong(cityString) {
-  console.log(cityString);
-
   let geoUrl = "https://api.openweathermap.org/geo/1.0/direct?";
-
   let response = await axios.get(
     `${geoUrl}q=${cityString}&limit=1&appid=${apiKey}`
   );
-
   let latitude = response.data[0].lat;
   let longitude = response.data[0].lon;
 
-  console.log(latitude);
-  console.log(longitude);
   updateCityWeather(latitude, longitude);
 }
 
@@ -116,26 +123,20 @@ function updateCityWeather(lat, lon) {
     .then(updateWeather);
 }
 
-// Updates App with user-entered City
+// Updates weather data for user-entered City
 function updateWeather(response) {
-  console.log(response);
-
-  let temperature = Math.round(response.data.main.temp);
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = `${temperature}°C`;
+  document.querySelector("#temperature").innerHTML = `${Math.round(
+    response.data.main.temp
+  )}°C`;
   // add link that toggles between °C and °F
-
-  let humidity = response.data.main.humidity;
-  let humidityElement = document.querySelector("#humidity");
-  humidityElement.innerHTML = `${humidity}%`;
-
-  let windSpeed = Math.round(response.data.wind.speed * 3.6);
-  let windSpeedElement = document.querySelector("#wind-speed");
-  windSpeedElement.innerHTML = `${windSpeed} km/hr`;
-
-  let description = response.data.weather[0].main;
-  let descriptionElement = document.querySelector("#weather-description");
-  descriptionElement.innerHTML = `${description}`;
+  document.querySelector("#humidity").innerHTML = `${Math.round(
+    response.data.main.humidity
+  )}%`;
+  document.querySelector("#wind-speed").innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} km/hr`;
+  document.querySelector("#weather-description").innerHTML =
+    response.data.weather[0].main;
 }
 
 // Current Local Weather (Button)
@@ -147,14 +148,12 @@ function showLocalWeather(event) {
     console.log(position);
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-
     updateCityWeather(lat, lon);
     getLocalWeather(lat, lon);
   }
 
   function getLocalWeather(lat, lon) {
     let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
-
     axios
       .get(`${apiUrl}lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
       .then(updateLocalCity);
@@ -163,6 +162,5 @@ function showLocalWeather(event) {
 
 function updateLocalCity(response) {
   console.log(response);
-  let cityLocal = document.querySelector("#city");
-  cityLocal.innerHTML = response.data.name;
+  document.querySelector("#city").innerHTML = response.data.name;
 }
