@@ -81,7 +81,6 @@ function updateCity(event) {
 
   let input = document.querySelector("#input-city");
   city.innerHTML = input.value.trim();
-  console.log(input.value.trim());
 
   let cityString = input.value.trim();
   getLatLong(cityString);
