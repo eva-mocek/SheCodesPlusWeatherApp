@@ -87,11 +87,13 @@ function updateCity(event) {
   getLatLong(cityString);
 }
 
+// API
+let apiKey = "d583b033935a0872b3f66c9a92145b16";
+
 // API - gets latitude and longitude of city searhed by user
 async function getLatLong(cityString) {
   console.log(cityString);
 
-  let apiKey = "d583b033935a0872b3f66c9a92145b16";
   let geoUrl = "https://api.openweathermap.org/geo/1.0/direct?";
 
   let response = await axios.get(
@@ -108,7 +110,6 @@ async function getLatLong(cityString) {
 
 // API - Pulls weather data from user-entered city
 function updateCityWeather(lat, lon) {
-  let apiKey = "d583b033935a0872b3f66c9a92145b16";
   let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
 
   axios
@@ -153,7 +154,6 @@ function showLocalWeather(event) {
   }
 
   function getLocalWeather(lat, lon) {
-    let apiKey = "d583b033935a0872b3f66c9a92145b16";
     let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
 
     axios
