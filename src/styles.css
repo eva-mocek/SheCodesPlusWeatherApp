@@ -29,6 +29,8 @@ i {
 
 a {
   color: #3f474d;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .search-bar {
@@ -101,8 +103,10 @@ a {
   padding-top: 28px;
 }
 
-.github-link {
-  text-decoration: underline;
+.temp-main .active {
+  font-weight: 400;
+  cursor: default;
+  color: #3f474d;
 }
 
 #weather-description {
