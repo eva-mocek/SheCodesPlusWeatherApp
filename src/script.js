@@ -1,9 +1,34 @@
-// Day
-// update to consider time zones
-let now = new Date();
-let currentDate = document.querySelector("#current-date");
+let city = "toronto";
+let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
-function formatDate(now) {
+axios.get(apiUrl).then(displayWeather);
+
+function displayWeather(response) {
+  console.log(response.data);
+  document.querySelector("#city").innerHTML = response.data.city;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `${response.data.temperature.humidity}%`;
+  document.querySelector("#wind-speed").innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} km/hr`;
+  document.querySelector("#weather-description").innerHTML =
+    response.data.condition.description;
+  document.querySelector("#temperature").innerHTML = `${Math.round(
+    response.data.temperature.current
+  )}°C`;
+  document.querySelector("#current-date").innerHTML = formatDate(
+    response.data.time * 1000
+  );
+  document.querySelector("#current-time").innerHTML = formatTime(
+    response.data.time * 1000
+  );
+}
+
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+
   let dayIndex = [
     "Sunday",
     "Monday",
@@ -29,18 +54,16 @@ function formatDate(now) {
     "December",
   ];
 
-  return `${dayIndex[now.getDay()]}, ${monthIndex[now.getMonth()]}
-  ${now.getDate()}`;
+  return `${dayIndex[now.getDay()]}, ${
+    monthIndex[now.getMonth()]
+  } ${now.getDate()}`;
 }
-currentDate.innerHTML = formatDate(now);
 
-// Time
-// update to consider time zones
-let currentTime = document.querySelector("#current-time");
-let amPm = document.querySelector("#am-pm");
-let hours = now.getHours();
+function formatTime(timestamp) {
+  let now = new Date(timestamp);
+  let amPm = document.querySelector("#am-pm");
+  let hours = now.getHours();
 
-function formatTime(time) {
   if (hours === 0) {
     hours = 12;
   }
@@ -63,30 +86,6 @@ function formatTime(time) {
   }
 
   return `${hours}:${minutes}`;
-}
-
-currentTime.innerHTML = formatTime(now);
-
-let city = "toronto";
-let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-axios.get(apiUrl).then(displayWeather);
-
-function displayWeather(response) {
-  console.log(response.data);
-  document.querySelector("#city").innerHTML = response.data.city;
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `${response.data.temperature.humidity}%`;
-  document.querySelector("#wind-speed").innerHTML = `${Math.round(
-    response.data.wind.speed
-  )} km/hr`;
-  document.querySelector("#weather-description").innerHTML =
-    response.data.condition.description;
-  document.querySelector("#temperature").innerHTML = `${Math.round(
-    response.data.temperature.current
-  )}°C`;
 }
 
 /*
