@@ -1,38 +1,3 @@
-let city = "combermere";
-
-let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-axios.get(apiUrl).then(displayWeather);
-
-function displayWeather(response) {
-  console.log(response.data);
-  let icon = document.querySelector("#icon");
-  document.querySelector("#city").innerHTML = response.data.city;
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `${response.data.temperature.humidity}%`;
-  document.querySelector("#wind-speed").innerHTML = `${Math.round(
-    response.data.wind.speed
-  )} km/hr`;
-  document.querySelector("#weather-description").innerHTML =
-    response.data.condition.description;
-  document.querySelector("#temperature").innerHTML = `${Math.round(
-    response.data.temperature.current
-  )}`;
-  document.querySelector("#current-date").innerHTML = formatDate(
-    response.data.time * 1000
-  );
-  document.querySelector("#current-time").innerHTML = formatTime(
-    response.data.time * 1000
-  );
-  icon.setAttribute(
-    "src",
-    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
-  );
-  icon.setAttribute("alt", response.data.condition.description);
-}
-
 function formatDate(timestamp) {
   let now = new Date(timestamp);
 
@@ -95,11 +60,53 @@ function formatTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-/*
-// Search Bar - submit event
-let form = document.querySelector("#search-city");
-form.addEventListener("submit", updateCity);
+function displayWeather(response) {
+  console.log(response.data);
+  let icon = document.querySelector("#icon");
+  document.querySelector("#city").innerHTML = response.data.city;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `${response.data.temperature.humidity}%`;
+  document.querySelector("#wind-speed").innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} km/hr`;
+  document.querySelector("#weather-description").innerHTML =
+    response.data.condition.description;
+  document.querySelector("#temperature").innerHTML = `${Math.round(
+    response.data.temperature.current
+  )}`;
+  document.querySelector("#current-date").innerHTML = formatDate(
+    response.data.time * 1000
+  );
+  document.querySelector("#current-time").innerHTML = formatTime(
+    response.data.time * 1000
+  );
+  icon.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
+  icon.setAttribute("alt", response.data.condition.description);
+}
 
+function searchCity(city) {
+  let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayWeather);
+}
+
+function handleSubmitSearch(event) {
+  event.preventDefault();
+  let inputCity = document.querySelector("#input-city");
+  searchCity(inputCity.value.trim());
+}
+
+searchCity("toronto");
+
+let form = document.querySelector("#search-city");
+form.addEventListener("submit", handleSubmitSearch);
+
+/*
 // Current Weather Button - click event
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", showLocalWeather);
@@ -109,7 +116,6 @@ currentButton.addEventListener("click", showLocalWeather);
 // Updates City with user input
 function updateCity(event) {
   event.preventDefault();
-  let input = document.querySelector("#input-city");
   document.querySelector("#city").innerHTML = input.value.trim();
   let cityString = input.value.trim();
   getLatLong(cityString);
