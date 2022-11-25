@@ -61,6 +61,10 @@ function formatTime(timestamp) {
 }
 
 function displayWeather(response) {
+  let searchLat = response.data.coordinates.latitude;
+  let searchLon = response.data.coordinates.longitude;
+  handleSubmitForecast(searchLat, searchLon);
+
   let icon = document.querySelector("#icon");
 
   celciusTemp = response.data.temperature.current;
@@ -102,7 +106,7 @@ function handleSubmitSearch(event) {
   searchCity(inputCity.value.trim());
 }
 
-function showLocalWeather(event) {
+function displayLocalWeather(event) {
   navigator.geolocation.getCurrentPosition(displayLocation);
 }
 
@@ -137,7 +141,7 @@ let form = document.querySelector("#search-city");
 form.addEventListener("submit", handleSubmitSearch);
 
 let currentButton = document.querySelector("#current-button");
-currentButton.addEventListener("click", showLocalWeather);
+currentButton.addEventListener("click", displayLocalWeather);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
@@ -151,11 +155,12 @@ searchCity("toronto");
 
 function displayForecast(response) {
   console.log(response);
+
   let dayIndexForecast = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
   let timestamp = response.data.daily[1].time * 1000;
   document.querySelector("#forecast-1-day").innerHTML =
-    dayIndexForecast[new Date(timestamp).getDay()]; //timestamp math that results in weekday
+    dayIndexForecast[new Date(timestamp).getDay()];
 
   let forecastIcon1 = document.querySelector("#forecast-1-icon");
   forecastIcon1.setAttribute("src", response.data.daily[1].condition.icon_url);
@@ -173,6 +178,8 @@ function displayForecast(response) {
 let lat = "45.3822884";
 let lon = "-77.6363604";
 
-let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
+function handleSubmitForecast(lat, lon) {
+  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
 
-axios.get(forecastUrl).then(displayForecast);
+  axios.get(forecastUrl).then(displayForecast);
+}
