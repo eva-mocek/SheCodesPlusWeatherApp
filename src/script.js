@@ -1,5 +1,3 @@
-let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
-
 function formatDate(timestamp) {
   let now = new Date(timestamp);
 
@@ -74,7 +72,7 @@ function displayWeather(response) {
   document.querySelector("#wind-speed").innerHTML = `${Math.round(
     response.data.wind.speed
   )} km/hr`;
-  document.querySelector("#weather-description").innerHTML =
+  document.querySelector("#weather-description-main").innerHTML =
     response.data.condition.description;
   document.querySelector("#temperature").innerHTML = `${Math.round(
     celciusTemp
@@ -87,7 +85,7 @@ function displayWeather(response) {
   );
   icon.setAttribute(
     "src",
-    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+    `https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
   icon.setAttribute("alt", response.data.condition.description);
 }
@@ -105,10 +103,10 @@ function handleSubmitSearch(event) {
 }
 
 function showLocalWeather(event) {
-  navigator.geolocation.getCurrentPosition(showLocation);
+  navigator.geolocation.getCurrentPosition(displayLocation);
 }
 
-function showLocation(position) {
+function displayLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let gpsUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
@@ -133,6 +131,8 @@ function displayCelciusTemp(event) {
   fahrenheitLink.classList.remove("active");
 }
 
+let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
+
 let form = document.querySelector("#search-city");
 form.addEventListener("submit", handleSubmitSearch);
 
@@ -148,3 +148,31 @@ celciusLink.addEventListener("click", displayCelciusTemp);
 let celciusTemp = null;
 
 searchCity("toronto");
+
+function displayForecast(response) {
+  console.log(response);
+  let dayIndexForecast = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+  let timestamp = response.data.daily[1].time * 1000;
+  document.querySelector("#forecast-1-day").innerHTML =
+    dayIndexForecast[new Date(timestamp).getDay()]; //timestamp math that results in weekday
+
+  let forecastIcon1 = document.querySelector("#forecast-1-icon");
+  forecastIcon1.setAttribute("src", response.data.daily[1].condition.icon_url);
+  forecastIcon1.setAttribute(
+    "alt",
+    response.data.daily[1].condition.description
+  );
+  document.querySelector("#forecast-1-temp").innerHTML = `${Math.round(
+    response.data.daily[1].temperature.day
+  )}°C`;
+  document.querySelector("#forecast-1-description").innerHTML =
+    response.data.daily[1].condition.description;
+}
+
+let lat = "45.3822884";
+let lon = "-77.6363604";
+
+let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
+
+axios.get(forecastUrl).then(displayForecast);
