@@ -1,3 +1,5 @@
+let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
+
 function formatDate(timestamp) {
   let now = new Date(timestamp);
 
@@ -61,7 +63,6 @@ function formatTime(timestamp) {
 }
 
 function displayWeather(response) {
-  console.log(response.data);
   let icon = document.querySelector("#icon");
   document.querySelector("#city").innerHTML = response.data.city;
   document.querySelector(
@@ -89,7 +90,6 @@ function displayWeather(response) {
 }
 
 function searchCity(city) {
-  let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(displayWeather);
@@ -106,81 +106,17 @@ searchCity("toronto");
 let form = document.querySelector("#search-city");
 form.addEventListener("submit", handleSubmitSearch);
 
-/*
-// Current Weather Button - click event
 let currentButton = document.querySelector("#current-button");
 currentButton.addEventListener("click", showLocalWeather);
 
-//let apiKey = "d583b033935a0872b3f66c9a92145b16";
-
-// Updates City with user input
-function updateCity(event) {
-  event.preventDefault();
-  document.querySelector("#city").innerHTML = input.value.trim();
-  let cityString = input.value.trim();
-  getLatLong(cityString);
-}
-
-// API - gets latitude and longitude of city searhed by user
-async function getLatLong(cityString) {
-  let geoUrl = "https://api.openweathermap.org/geo/1.0/direct?";
-  let response = await axios.get(
-    `${geoUrl}q=${cityString}&limit=1&appid=${apiKey}`
-  );
-  let latitude = response.data[0].lat;
-  let longitude = response.data[0].lon;
-  updateCityWeather(latitude, longitude);
-}
-
-// API - Pulls weather data from user-entered city
-function updateCityWeather(lat, lon) {
-  let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
-
-  axios
-    .get(`${apiUrl}lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-    .then(updateWeather);
-}
-
-// Updates weather data for user-entered City
-function updateWeather(response) {
-  document.querySelector("#temperature").innerHTML = `${Math.round(
-    response.data.main.temp
-  )}°C`;
-  // add link that toggles between °C and °F
-  document.querySelector("#humidity").innerHTML = `${Math.round(
-    response.data.main.humidity
-  )}%`;
-  document.querySelector("#wind-speed").innerHTML = `${Math.round(
-    response.data.wind.speed
-  )} km/hr`;
-  document.querySelector("#weather-description").innerHTML =
-    response.data.weather[0].main;
-}
-
-// Current Local Weather (Button)
-
 function showLocalWeather(event) {
   navigator.geolocation.getCurrentPosition(showLocation);
-
-  function showLocation(position) {
-    console.log(position);
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    updateCityWeather(lat, lon);
-    getLocalWeather(lat, lon);
-  }
-
-  function getLocalWeather(lat, lon) {
-    let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
-    axios
-      .get(`${apiUrl}lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-      .then(updateLocalCity);
-  }
 }
 
-function updateLocalCity(response) {
-  document.querySelector("#city").innerHTML = response.data.name;
-}
+function showLocation(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let gpsUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
 
-updateCityWeather(43.6534817, -79.3839347); //Toronto, ON, Canada
-*/
+  axios.get(gpsUrl).then(displayWeather);
+}
