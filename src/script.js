@@ -155,29 +155,29 @@ let celciusTemp = null;
 searchCity("toronto");
 
 function displayForecast(response) {
-  console.log(response);
-
   let dayIndexForecast = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
-  let timestamp = response.data.daily[1].time * 1000;
-  document.querySelector("#forecast-1-day").innerHTML =
-    dayIndexForecast[new Date(timestamp).getDay()];
+  for (i = 1; i < 7; i++) {
+    let timestamp = response.data.daily[i].time * 1000;
+    document.querySelector(`#forecast-${i}-day`).innerHTML =
+      dayIndexForecast[new Date(timestamp).getDay()];
 
-  let forecastIcon1 = document.querySelector("#forecast-1-icon");
-  forecastIcon1.setAttribute("src", response.data.daily[1].condition.icon_url);
-  forecastIcon1.setAttribute(
-    "alt",
-    response.data.daily[1].condition.description
-  );
-  document.querySelector("#forecast-1-temp").innerHTML = `${Math.round(
-    response.data.daily[1].temperature.day
-  )}°C`;
-  document.querySelector("#forecast-1-description").innerHTML =
-    response.data.daily[1].condition.description;
+    let forecastIcon1 = document.querySelector(`#forecast-${i}-icon`);
+    forecastIcon1.setAttribute(
+      "src",
+      response.data.daily[i].condition.icon_url
+    );
+    forecastIcon1.setAttribute(
+      "alt",
+      response.data.daily[i].condition.description
+    );
+    document.querySelector(`#forecast-${i}-temp`).innerHTML = `${Math.round(
+      response.data.daily[i].temperature.day
+    )}°C`;
+    document.querySelector(`#forecast-${i}-description`).innerHTML =
+      response.data.daily[i].condition.description;
+  }
 }
-
-let lat = "45.3822884";
-let lon = "-77.6363604";
 
 function handleSubmitForecast(lat, lon) {
   let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
