@@ -160,7 +160,7 @@ let celciusTemp = null;
 searchCity("toronto");
 
 function displayForecast(response) {
-  let dayIndexForecast = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+  let dayIndexForecast = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   for (i = 1; i < 7; i++) {
     let timestamp = response.data.daily[i].time * 1000;
