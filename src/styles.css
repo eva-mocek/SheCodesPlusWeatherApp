@@ -26,6 +26,10 @@ i {
   color: #3f474d;
 }
 
+a {
+  color: #3f474d;
+}
+
 .search-bar {
   width: 300px;
   border: solid 1px darkgrey;
@@ -42,6 +46,10 @@ i {
   text-transform: capitalize;
 }
 
+.city-row {
+  padding-bottom: 20px;
+}
+
 .humid-wind {
   text-align: right;
 }
@@ -54,7 +62,7 @@ i {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   text-align: right;
-  font-size: 70px;
+  font-size: 60px;
   padding: none;
 }
 

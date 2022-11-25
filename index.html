@@ -43,11 +43,13 @@
 
       <div class="main-display">
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 city-row">
             <div class="city" id="city">Toronto</div>
           </div>
           <div class="col-6">
             <div class="humid-wind">
+              <span id="weather-description"></span>
+              <br />
               Humidity: <span id="humidity"></span>
               <br />
               Wind Speed: <span id="wind-speed"></span>
@@ -55,15 +57,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 temp-row">
             <div class="date-time" id="current-date-time">
               <span id="current-date"></span>
               <br />
-              <span id="current-time"></span>
+              Last updated at <span id="current-time"></span>
               <span id="am-pm"></span>
               <br />
               <!-- <i class="fa-solid fa-wind"></i> -->
-              <span id="weather-description"></span>
             </div>
           </div>
           <div class="col-6">
