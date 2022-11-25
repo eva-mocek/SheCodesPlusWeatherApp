@@ -107,6 +107,7 @@ function handleSubmitSearch(event) {
 }
 
 function displayLocalWeather(event) {
+  event.preventDefault();
   navigator.geolocation.getCurrentPosition(displayLocation);
 }
 
