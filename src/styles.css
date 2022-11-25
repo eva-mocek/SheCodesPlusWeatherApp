@@ -92,6 +92,15 @@ a {
   font-size: 12px;
 }
 
+#icon {
+  max-height: 100px;
+}
+
+#units {
+  padding-inline-start: 10px;
+  padding-top: 28px;
+}
+
 .github-link {
   text-decoration: underline;
 }

@@ -1,4 +1,4 @@
-let city = "toronto";
+let city = "combermere";
 
 let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
 let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
@@ -19,7 +19,7 @@ function displayWeather(response) {
     response.data.condition.description;
   document.querySelector("#temperature").innerHTML = `${Math.round(
     response.data.temperature.current
-  )}°C`;
+  )}`;
   document.querySelector("#current-date").innerHTML = formatDate(
     response.data.time * 1000
   );
@@ -30,6 +30,7 @@ function displayWeather(response) {
     "src",
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
+  icon.setAttribute("alt", response.data.condition.description);
 }
 
 function formatDate(timestamp) {
