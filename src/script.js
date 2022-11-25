@@ -126,11 +126,6 @@ function displayFahrenheitTemp(event) {
   temperatureElement.innerHTML = Math.round(fahrenheitTemp);
   fahrenheitLink.classList.add("active");
   celciusLink.classList.remove("active");
-
-  for (i = 1; 1 < 7; i++) {
-    let forecastTemp = document.querySelector(`#forecast-${i}-temp`);
-    console.log(forecastTemp.innerHTML);
-  }
 }
 
 function displayCelciusTemp(event) {
