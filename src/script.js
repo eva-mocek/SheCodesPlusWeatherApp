@@ -106,12 +106,12 @@ function handleSubmitSearch(event) {
   searchCity(inputCity.value.trim());
 }
 
-function displayLocalWeather(event) {
+function getLocalWeather(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(displayLocation);
+  navigator.geolocation.getCurrentPosition(getCoords);
 }
 
-function displayLocation(position) {
+function getCoords(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let gpsUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
@@ -142,7 +142,7 @@ let form = document.querySelector("#search-city");
 form.addEventListener("submit", handleSubmitSearch);
 
 let currentButton = document.querySelector("#current-button");
-currentButton.addEventListener("click", displayLocalWeather);
+currentButton.addEventListener("click", getLocalWeather);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
