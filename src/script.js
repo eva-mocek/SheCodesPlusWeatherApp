@@ -136,6 +136,47 @@ function displayCelciusTemp(event) {
   fahrenheitLink.classList.remove("active");
 }
 
+function handleSubmitForecast(lat, lon) {
+  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
+
+  axios.get(forecastUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response);
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+
+  for (i = 1; i < 7; i++) {
+    let apiResponse = response.data.daily[i];
+    let daysIndex = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    let forecastTimestamp = apiResponse.time * 1000;
+    let forecastDay = new Date(forecastTimestamp);
+    forecastDay = forecastDay.getDay();
+
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col">
+      <div class="forecast-day">${daysIndex[forecastDay]}</div>
+      <div>
+      <img src="${apiResponse.condition.icon_url}" alt="${
+        apiResponse.condition.icon
+      }" class="forecast-icon" />
+      </div>
+      <div class="forecast-temp">${Math.round(
+        apiResponse.temperature.day
+      )}°C</div>
+        <div class="forecast-description">${
+          apiResponse.condition.description
+        }</div>
+        </div>`;
+  }
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let apiKey = "a12e1c2t3a5fde8c3o498d0228b3eb28";
 
 let form = document.querySelector("#search-city");
@@ -153,34 +194,3 @@ celciusLink.addEventListener("click", displayCelciusTemp);
 let celciusTemp = null;
 
 searchCity("toronto");
-
-function displayForecast(response) {
-  let dayIndexForecast = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-  for (i = 1; i < 7; i++) {
-    let timestamp = response.data.daily[i].time * 1000;
-    document.querySelector(`#forecast-${i}-day`).innerHTML =
-      dayIndexForecast[new Date(timestamp).getDay()];
-
-    let forecastIcon1 = document.querySelector(`#forecast-${i}-icon`);
-    forecastIcon1.setAttribute(
-      "src",
-      response.data.daily[i].condition.icon_url
-    );
-    forecastIcon1.setAttribute(
-      "alt",
-      response.data.daily[i].condition.description
-    );
-    document.querySelector(`#forecast-${i}-temp`).innerHTML = `${Math.round(
-      response.data.daily[i].temperature.day
-    )}°C`;
-    document.querySelector(`#forecast-${i}-description`).innerHTML =
-      response.data.daily[i].condition.description;
-  }
-}
-
-function handleSubmitForecast(lat, lon) {
-  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
-
-  axios.get(forecastUrl).then(displayForecast);
-}

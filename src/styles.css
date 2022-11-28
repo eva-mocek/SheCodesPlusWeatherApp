@@ -23,10 +23,6 @@ button:hover {
   background-color: lightgray;
 }
 
-i {
-  color: #3f474d;
-}
-
 a {
   color: #3f474d;
   text-decoration: none;
@@ -34,7 +30,7 @@ a {
 }
 
 .search-bar {
-  width: 300px;
+  width: 60%;
   border: solid 1px darkgrey;
 }
 
@@ -49,22 +45,25 @@ a {
   text-transform: capitalize;
 }
 
-.city-row {
-  padding-bottom: 20px;
-}
-
 .humid-wind {
   text-align: right;
 }
 
 .date-time {
   padding-top: 30px;
+  padding-bottom: 15px;
 }
 
 .temp-main {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.temp-main .active {
+  font-weight: 400;
+  cursor: default;
+  color: #3f474d;
 }
 
 .temperature {
@@ -77,11 +76,6 @@ a {
 
 .deg-lg {
   font-size: 70px;
-}
-
-.forecast {
-  padding-top: 25px;
-  text-align: center;
 }
 
 .forecast-icon {
@@ -117,12 +111,11 @@ a {
   padding-top: 28px;
 }
 
-.temp-main .active {
-  font-weight: 400;
-  cursor: default;
-  color: #3f474d;
-}
-
 #weather-description-main {
   text-transform: capitalize;
+}
+
+#forecast {
+  padding-top: 25px;
+  text-align: center;
 }
