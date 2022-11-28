@@ -143,7 +143,6 @@ function handleSubmitForecast(lat, lon) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
 
