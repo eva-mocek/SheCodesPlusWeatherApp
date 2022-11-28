@@ -45,6 +45,10 @@ a {
   text-transform: capitalize;
 }
 
+.city {
+  padding-bottom: 30px;
+}
+
 .humid-wind {
   text-align: right;
 }
