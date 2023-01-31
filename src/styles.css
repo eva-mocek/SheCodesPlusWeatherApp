@@ -43,9 +43,6 @@ a {
   font-weight: 200;
   font-size: 40px;
   text-transform: capitalize;
-}
-
-.city {
   padding-bottom: 20px;
 }
 
@@ -76,10 +73,6 @@ a {
   text-align: right;
   font-size: 60px;
   padding: none;
-}
-
-.deg-lg {
-  font-size: 70px;
 }
 
 .forecast-icon {
